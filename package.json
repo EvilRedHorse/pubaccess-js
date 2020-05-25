@@ -1,7 +1,7 @@
 {
-  "name": "skynet-js",
+  "name": "pubaccess-js",
   "version": "0.0.1",
-  "description": "Sia Skynet Javascript Client",
+  "description": "ScPrime Public Portals Javascript Client",
   "browser": "src/index.js",
   "scripts": {
     "test": "jest"
@@ -22,17 +22,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NebulousLabs/skynet-js.git"
+    "url": "git+https://github.com/scpcorp/pubaccess-js.git"
   },
   "keywords": [
-    "sia"
+    "scprime"
   ],
-  "author": "Karol Wypchlo",
-  "license": "ISC",
+  "author": "EvilRedHorse",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/NebulousLabs/skynet-js/issues"
+    "url": "https://github.com/scpcorp/pubaccess-js/issues"
   },
-  "homepage": "https://nebulouslabs.github.io/skynet-js/",
+  "homepage": "https://scpcorp.github.io/pubaccess-js/",
   "dependencies": {
     "axios": "^0.19.2",
     "url-parse": "^1.4.7"
