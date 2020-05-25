@@ -1,33 +1,33 @@
 import axios from "axios";
-import SkynetClient, { getUrl, download, open, upload, uploadDirectory } from "./index";
+import PubaccessClient, { getUrl, download, open, upload, uploadDirectory } from "./index";
 
 jest.mock("axios");
 
-const portalUrl = "https://siasky.net";
-const skylink = "XABvi7JtJbQSMAcDwnUnmp2FKDPjg8_tTTFP4BwMSxVdEg";
+const portalUrl = "https://scp.techandsupply.ca";
+const skylink = "WhitePaperPDF-publink";
 
-describe("SkynetClient", () => {
+describe("PubaccessClient", () => {
   it("should contain all api methods", () => {
-    const skynetClient = new SkynetClient();
+    const skynetClient = new PubaccessClient();
 
-    expect(skynetClient).toHaveProperty("upload");
-    expect(skynetClient).toHaveProperty("download");
-    expect(skynetClient).toHaveProperty("open");
-    expect(skynetClient).toHaveProperty("getUrl");
+    expect(pubaccessClient).toHaveProperty("upload");
+    expect(pubaccessClient).toHaveProperty("download");
+    expect(pubaccessClient).toHaveProperty("open");
+    expect(pubaccessClient).toHaveProperty("getUrl");
   });
 });
 
 describe("getUrl", () => {
   it("should return correctly formed url", () => {
-    const url = getUrl(portalUrl, skylink);
+    const url = getUrl(portalUrl, publink);
 
-    expect(url).toEqual(`${portalUrl}/${skylink}`);
+    expect(url).toEqual(`${portalUrl}/${publink}`);
   });
 
   it("should return correctly formed url with forced download", () => {
-    const url = getUrl(portalUrl, skylink, { download: true });
+    const url = getUrl(portalUrl, publink, { download: true });
 
-    expect(url).toEqual(`${portalUrl}/${skylink}?attachment=true`);
+    expect(url).toEqual(`${portalUrl}/${publink}?attachment=true`);
   });
 });
 
@@ -35,9 +35,9 @@ describe("download", () => {
   it("should call window.open with a download url", () => {
     const windowOpen = jest.spyOn(window, "open").mockImplementation();
 
-    download(portalUrl, skylink);
+    download(portalUrl, publink);
 
-    expect(windowOpen).toHaveBeenCalledWith(`${portalUrl}/${skylink}?attachment=true`, "_blank");
+    expect(windowOpen).toHaveBeenCalledWith(`${portalUrl}/${publink}?attachment=true`, "_blank");
   });
 });
 
@@ -45,9 +45,9 @@ describe("open", () => {
   it("should call window.open with a download url", () => {
     const windowOpen = jest.spyOn(window, "open").mockImplementation();
 
-    open(portalUrl, skylink);
+    open(portalUrl, publink);
 
-    expect(windowOpen).toHaveBeenCalledWith(`${portalUrl}/${skylink}`, "_blank");
+    expect(windowOpen).toHaveBeenCalledWith(`${portalUrl}/${publink}`, "_blank");
   });
 });
 
@@ -57,27 +57,27 @@ describe("upload", () => {
   const file = new File([blob], filename);
 
   beforeEach(() => {
-    axios.post.mockResolvedValue({ data: { skylink } });
+    axios.post.mockResolvedValue({ data: { publink } });
   });
 
   it("should send post request with FormData", () => {
     upload(portalUrl, file);
 
-    expect(axios.post).toHaveBeenCalledWith(`${portalUrl}/skynet/skyfile`, expect.any(FormData), undefined);
+    expect(axios.post).toHaveBeenCalledWith(`${portalUrl}/pubaccess/pubfile`, expect.any(FormData), undefined);
   });
 
   it("should send register onUploadProgress callback if defined", () => {
     upload(portalUrl, file, { onUploadProgress: jest.fn() });
 
-    expect(axios.post).toHaveBeenCalledWith(`${portalUrl}/skynet/skyfile`, expect.any(FormData), {
+    expect(axios.post).toHaveBeenCalledWith(`${portalUrl}/pubaccess/pubfile`, expect.any(FormData), {
       onUploadProgress: expect.any(Function),
     });
   });
 
-  it("should return skylink on success", async () => {
+  it("should return publink on success", async () => {
     const data = await upload(portalUrl, file);
 
-    expect(data).toEqual({ skylink });
+    expect(data).toEqual({ publink });
   });
 });
 
@@ -91,14 +91,14 @@ describe("uploadDirectory", () => {
   };
 
   beforeEach(() => {
-    axios.post.mockResolvedValue({ data: { skylink } });
+    axios.post.mockResolvedValue({ data: { publink } });
   });
 
   it("should send post request with FormData", () => {
     uploadDirectory(portalUrl, directory, filename);
 
     expect(axios.post).toHaveBeenCalledWith(
-      `${portalUrl}/skynet/skyfile?filename=${filename}`,
+      `${portalUrl}/pubaccess/pubfile?filename=${filename}`,
       expect.any(FormData),
       undefined
     );
@@ -107,14 +107,14 @@ describe("uploadDirectory", () => {
   it("should send register onUploadProgress callback if defined", () => {
     uploadDirectory(portalUrl, directory, filename, { onUploadProgress: jest.fn() });
 
-    expect(axios.post).toHaveBeenCalledWith(`${portalUrl}/skynet/skyfile?filename=${filename}`, expect.any(FormData), {
+    expect(axios.post).toHaveBeenCalledWith(`${portalUrl}/pubaccess/pubfile?filename=${filename}`, expect.any(FormData), {
       onUploadProgress: expect.any(Function),
     });
   });
 
-  it("should return single skylink on success", async () => {
+  it("should return single publink on success", async () => {
     const data = await uploadDirectory(portalUrl, directory, filename);
 
-    expect(data).toEqual({ skylink });
+    expect(data).toEqual({ publink });
   });
 });
