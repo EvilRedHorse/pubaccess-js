@@ -1,19 +1,19 @@
-# skynet-js - Javascript Sia Skynet Client
+# skynet-js - Javascript ScPrime Public Portals Client
 
-A Javascript module made to simplify communication with Sia Skynet portals from the browser.
+A Javascript module made to simplify communication with ScPrime Public Portals from the browser.
 
 ## Installing
 
 Using npm
 
 ```sh
-npm install skynet-js
+npm install pubaccess-js
 ```
 
 Using yarn
 
 ```sh
-yarn add skynet-js
+yarn add pubaccess-js
 ```
 
 ## Development
@@ -27,7 +27,7 @@ yarn add skynet-js
 ### async upload(portalUrl, file, [options])
 
 ```javascript
-import { upload } from "skynet-js";
+import { upload } from "pubaccess-js";
 ```
 
 Use the `portalUrl` to upload `file` contents.
@@ -38,7 +38,7 @@ Use the `portalUrl` to upload `file` contents.
 
 `options.onUploadProgress` (function) - Optional callback to track progress.
 
-Returns a promise that resolves with a `{ skylink }` or throws `error` on failure.
+Returns a promise that resolves with a `{ publink }` or throws `error` on failure.
 
 ```javascript
 const onUploadProgress = (progress, { loaded, total }) => {
@@ -46,7 +46,7 @@ const onUploadProgress = (progress, { loaded, total }) => {
 };
 
 try {
-  const { skylink } = await upload(portalUrl, file, { onUploadProgress });
+  const { publink } = await upload(portalUrl, file, { onUploadProgress });
 } catch (error) {
   // handle error
 }
@@ -55,7 +55,7 @@ try {
 ### async uploadDirectory(portalUrl, directory, filename, [options])
 
 ```javascript
-import { uploadDirectory } from "skynet-js";
+import { uploadDirectory } from "pubaccess-js";
 ```
 
 Use the `portalUrl` to upload `directory` contents as a `filename`.
@@ -68,7 +68,7 @@ Use the `portalUrl` to upload `directory` contents as a `filename`.
 
 `options.onUploadProgress` (function) - Optional callback to track progress.
 
-Returns a promise that resolves with a `{ skylink }` or throws `error` on failure.
+Returns a promise that resolves with a `{ publink }` or throws `error` on failure.
 
 #### Browser example
 
@@ -104,60 +104,60 @@ try {
     return { ...acc, [path]: file };
   }, {});
 
-  const { skylink } = await uploadDirectory(portalUrl, directory, filename, { onUploadProgress });
+  const { publink } = await uploadDirectory(portalUrl, directory, filename, { onUploadProgress });
 } catch (error) {
   // handle error
 }
 ```
 
-### download(portalUrl, skylink)
+### download(portalUrl, publink)
 
 ```javascript
-import { download } from "skynet-js";
+import { download } from "pubaccess-js";
 ```
 
-Use the `portalUrl` to download `skylink` contents.
+Use the `portalUrl` to download `publink` contents.
 
 `portalUrl` (string) - The string portal url.
 
-`skylink` (string) - 46 character skylink.
+`publink` (string) - 46 character publink.
 
 Returns nothing.
 
-### open(portalUrl, skylink)
+### open(portalUrl, publink)
 
 ```javascript
-import { open } from "skynet-js";
+import { open } from "pubaccess-js";
 ```
 
-Use the `portalUrl` to open `skylink` in a new browser tab. Browsers support opening natively only limited file extensions like .html or .jpg and will fallback to downloading the file.
+Use the `portalUrl` to open `publink` in a new browser tab. Browsers support opening natively only limited file extensions like .html or .jpg and will fallback to downloading the file.
 
 `portalUrl` (string) - The string portal url.
 
-`skylink` (string) - 46 character skylink.
+`publink` (string) - 46 character publink.
 
 Returns nothing.
 
-### getUrl(portalUrl, skylink, [options])
+### getUrl(portalUrl, publink, [options])
 
 ```javascript
-import { getUrl } from "skynet-js";
+import { getUrl } from "pubaccess-js";
 ```
 
-Use the `portalUrl` to generate direct `skylink` url.
+Use the `portalUrl` to generate direct `publink` url.
 
 `portalUrl` (string) - The string portal url.
 
-`skylink` (string) - 46 character skylink.
+`publink` (string) - 46 character publink.
 
 `options.download` (boolean) - Option to include download directive in the url that will force a download when used. Defaults to `false`.
 
-## Docs: using SkynetClient
+## Docs: using PubaccessClient
 
 ```javascript
-import SkynetClient from "skynet-js";
+import PubaccessClient from "pubaccess-js";
 
-const client = new SkynetClient("https://siasky.net");
+const client = new PubaccessClient("https://scp.techandsupply.ca");
 ```
 
 Client implements all the standalone functions as methods with bound `portalUrl` so you don't need to repeat it every time.
